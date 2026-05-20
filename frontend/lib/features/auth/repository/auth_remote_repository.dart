@@ -30,11 +30,41 @@ class AuthRemoteRepository {
     }
   }
 
-  Future<void> login({required String email, required String password}) async {
-    try {
-      http.post(Uri.parse('${Constants.backendUri}/auth/login'));
-    } catch (e) {
-      throw (e).toString();
+  Future<UserModels> login({
+  required String email,
+  required String password,
+}) async {
+  try {
+
+    final response = await http.post(
+      Uri.parse('${Constants.backendUri}/auth/login'),
+
+      headers: {
+        'Content-Type': 'application/json',
+      },
+
+      body: jsonEncode({
+        'email': email,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+
+      return UserModels.fromJson(
+        jsonDecode(response.body),
+      );
+
+    } else {
+
+      throw jsonDecode(response.body)['message'];
+
     }
+
+  } catch (e) {
+
+    throw e.toString();
+
   }
+}
 }
