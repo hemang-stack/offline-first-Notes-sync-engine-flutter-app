@@ -13,14 +13,10 @@ class AuthRemoteRepository {
       final res = await http.post(
         Uri.parse('${Constants.backendUri}/auth/signup'),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'name': name,
-          'email': email,
-          'password': password,
-        }),
+        body: jsonEncode({'name': name, 'email': email, 'password': password}),
       );
 
-      if(res.statusCode != 201){
+      if (res.statusCode != 201) {
         throw jsonDecode(res.body)['msg'];
       }
 
@@ -31,40 +27,24 @@ class AuthRemoteRepository {
   }
 
   Future<UserModels> login({
-  required String email,
-  required String password,
-}) async {
-  try {
-
-    final response = await http.post(
-      Uri.parse('${Constants.backendUri}/auth/login'),
-
-      headers: {
-        'Content-Type': 'application/json',
-      },
-
-      body: jsonEncode({
-        'email': email,
-        'password': password,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-
-      return UserModels.fromJson(
-        jsonDecode(response.body),
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${Constants.backendUri}/auth/login'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': email, 'password': password}),
       );
+      if (response.statusCode == 200) {
+        return UserModels.fromMap(jsonDecode(response.body));
+      } else {
+        final body = jsonDecode(response.body);
 
-    } else {
-
-      throw jsonDecode(response.body)['message'];
-
+        throw body['message'] ?? 'Login failed!!';
+      }
+    } catch (e) {
+      throw e.toString();
     }
-
-  } catch (e) {
-
-    throw e.toString();
-
   }
-}
 }
