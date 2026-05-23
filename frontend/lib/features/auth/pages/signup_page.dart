@@ -119,7 +119,7 @@ class _SignupPageState extends State<SignupPage> {
                   const SizedBox(height: 10),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(context).push(LoginPage.route());
                     },
                     child: RichText(
                       text: TextSpan(

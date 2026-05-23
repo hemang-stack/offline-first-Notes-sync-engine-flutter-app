@@ -34,7 +34,7 @@ authRouter.post(
             if (existingUser.length) {
                 res
                     .status(400)
-                    .json({ msg: "User with the same email already exists!" });
+                    .json({ error: "User with the same email already exists!" });
                 return;
             };
             // hash password
@@ -69,13 +69,13 @@ authRouter.post(
             if (!existingUser) {
                 res
                     .status(400)
-                    .json({ msg: "User with this email doesn't exist!" });
+                    .json({ error: "User with this email doesn't exist!" });
                 return;
             };
             // comparing password with the existing one
             const isMatch = await bcrypt.compare(password, existingUser.password);
             if (!isMatch) {
-                res.status(400).json({ msg: "Incorrect Password" });
+                res.status(400).json({ error: "Incorrect Password" });
                 return;
             }
 
@@ -113,7 +113,7 @@ authRouter.post(
                 .from(users)
                 .where(eq(users.id, verifiedToken.id));
             //if no, return false
-            if (!user) {
+            if (user.length == 0) {
                 res.json(false)
                 return;
             };
@@ -132,7 +132,7 @@ authRouter.post(
 authRouter.get("/", auth, async(req: AuthRequest, res) => {
     try {
         if(!req.user){
-            res.status(401).json({ msg: "User not found!" });
+            res.status(401).json({ error: "User not found!" });
             return;
         }
 

@@ -54,6 +54,7 @@ class AuthRemoteRepository {
   Future<UserModels?> getUserData() async {
     try {
       final token = await spService.getToken();
+
       if (token == null) {
         return null;
       }
@@ -63,13 +64,22 @@ class AuthRemoteRepository {
         headers: {'Content-Type': 'application/json', 'x-auth-token': token},
       );
 
-      if (res.statusCode != 200) {
+      if (res.statusCode != 200 || jsonDecode(res.body) == false) {
         return null;
       }
 
-      return UserModels.fromJson(res.body);
+      final userResponse = await http.get(
+        Uri.parse('${Constants.backendUri}/auth'),
+        headers: {'Content-Type': 'application/json', 'x-auth-token': token},
+      );
+
+      if (userResponse.statusCode != 200) {
+        throw jsonDecode(userResponse.body)['error'];
+      }
+
+      return UserModels.fromJson(userResponse.body);
     } catch (e) {
-      throw (e).toString();
+      return null;
     }
   }
 }

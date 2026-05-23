@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/features/auth/cubit/auth_cubit.dart';
-import 'package:frontend/features/auth/pages/signup_page.dart';
+import 'package:frontend/features/home/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   static MaterialPageRoute route() =>
@@ -43,10 +43,8 @@ class _LoginPageState extends State<LoginPage> {
               context,
             ).showSnackBar(SnackBar(content: Text(state.error)));
           }
-          if (state is AuthLoggedIn) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Account logged In Successfully!")),
-            );
+          else if (state is AuthLoggedIn) {
+              Navigator.pushAndRemoveUntil(context, HomePage.route(), (_) => false);
           }
         },
         builder: (context, state) {
@@ -102,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 10),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(SignupPage.route());
+                      Navigator.of(context).pop();
                     },
                     child: RichText(
                       text: TextSpan(

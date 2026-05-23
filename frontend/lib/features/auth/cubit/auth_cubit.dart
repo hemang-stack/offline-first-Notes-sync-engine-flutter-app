@@ -10,6 +10,21 @@ class AuthCubit extends Cubit<AuthState> {
   final authRemoteRepository = AuthRemoteRepository();
   final spService = SpService();
 
+  void getUserData() async {
+    try {
+      emit(AuthLoading());
+      final userModel = await authRemoteRepository.getUserData();
+
+      if (userModel != null) {
+        emit(AuthLoggedIn(userModel));
+      } else {
+        emit(AuthInitial());
+      }
+    } catch (e) {
+      emit(AuthInitial());
+    }
+  }
+
   void signUp({
     required String name,
     required String email,
