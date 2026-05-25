@@ -52,7 +52,7 @@ class DateItem extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 0.5),
               Text(
                 dayOfWeek,
                 style: AppTheme.bodySmall.copyWith(

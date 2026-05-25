@@ -119,6 +119,7 @@ class _HomePageState extends State<HomePage> {
         category: 'Sync',
         isCompleted: false,
       ),
+
     ];
     _updateCompletedTaskCount();
   }
