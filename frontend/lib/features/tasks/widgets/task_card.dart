@@ -3,7 +3,6 @@ import 'package:frontend/core/theme/app_colors.dart';
 import 'package:frontend/core/theme/app_theme.dart';
 import 'package:frontend/features/tasks/models/task_model.dart';
 
-
 class TaskCard extends StatelessWidget {
   final TaskModel task;
   final ValueChanged<bool?>? onCheckedChanged;
@@ -61,7 +60,8 @@ class TaskCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: task.isCompleted ? AppColors.surfaceVariant : AppColors.surface,
+          color:
+              task.isCompleted ? AppColors.surfaceVariant : AppColors.surface,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: AppColors.border,
@@ -98,15 +98,13 @@ class TaskCard extends StatelessWidget {
                 children: [
                   Text(
                     task.title,
-                    style:
-                    AppTheme.titleMedium.copyWith(
+                    style: AppTheme.titleMedium.copyWith(
                       fontSize: 16,
                       color: task.isCompleted
                           ? AppColors.textSecondary
                           : AppColors.textPrimary,
-                      decoration: task.isCompleted
-                          ? TextDecoration.lineThrough
-                          : null,
+                      decoration:
+                          task.isCompleted ? TextDecoration.lineThrough : null,
                       decorationColor: AppColors.textSecondary,
                     ),
                     maxLines: 1,
@@ -115,55 +113,59 @@ class TaskCard extends StatelessWidget {
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      Icon(
-                        Icons.schedule_rounded,
-                        size: 14,
-                        color: AppColors.textSecondary,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        task.timeRange,
-                        style: AppTheme.bodySmall.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      if (task.category != null) ...[
-                        Icon(
-                          _getCategoryIcon(),
-                          size: 14,
-                          color: AppColors.textSecondary,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          task.category!,
+                      Expanded(
+                        child: Text(
+                          task.description ?? 'Description',  
                           style: AppTheme.bodySmall.copyWith(
                             color: AppColors.textSecondary,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ],
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
             const SizedBox(width: 12),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 4,
-              ),
-              decoration: BoxDecoration(
-                color: _getPriorityBackgroundColor(),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(
-                task.priority.label,
-                style: AppTheme.labelSmall.copyWith(
-                  color: _getPriorityColor(),
-                  fontWeight: FontWeight.w600,
+            Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _getPriorityBackgroundColor(),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    task.priority.label,
+                    style: AppTheme.labelSmall.copyWith(
+                      color: _getPriorityColor(),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(height: 7),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.schedule_rounded,
+                      size: 10,
+                      color: AppColors.textSecondary,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      task.time,
+                      style: AppTheme.bodySmall.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/core/theme/app_colors.dart';
 import 'package:frontend/core/theme/app_theme.dart';
+import 'package:frontend/features/home/pages/create_task_page.dart';
 import 'package:frontend/features/tasks/models/task_model.dart';
 import 'package:frontend/features/tasks/widgets/custom_header.dart';
 import 'package:frontend/features/tasks/widgets/date_timeline.dart';
@@ -34,20 +35,15 @@ class _HomePageState extends State<HomePage> {
       TaskModel(
         id: '1',
         title: 'Review Design Specs',
+        description:
+            'Checking the design specs for the client before the meeting',
         priority: TaskPriority.high,
         status: TaskStatus.pending,
-        startTime: DateTime(
+        Time: DateTime(
           _selectedDate.year,
           _selectedDate.month,
           _selectedDate.day,
           10,
-          0,
-        ),
-        endTime: DateTime(
-          _selectedDate.year,
-          _selectedDate.month,
-          _selectedDate.day,
-          11,
           0,
         ),
         category: 'Design',
@@ -56,20 +52,14 @@ class _HomePageState extends State<HomePage> {
       TaskModel(
         id: '2',
         title: 'Product Sync',
+        description: 'Checking the designs',
         priority: TaskPriority.medium,
         status: TaskStatus.pending,
-        startTime: DateTime(
+        Time: DateTime(
           _selectedDate.year,
           _selectedDate.month,
           _selectedDate.day,
           13,
-          0,
-        ),
-        endTime: DateTime(
-          _selectedDate.year,
-          _selectedDate.month,
-          _selectedDate.day,
-          14,
           0,
         ),
         category: 'Sync',
@@ -78,21 +68,15 @@ class _HomePageState extends State<HomePage> {
       TaskModel(
         id: '3',
         title: 'Q4 Roadmap Planning',
+        description: 'Specs for the client before the meeting',
         priority: TaskPriority.high,
         status: TaskStatus.pending,
-        startTime: DateTime(
+        Time: DateTime(
           _selectedDate.year,
           _selectedDate.month,
           _selectedDate.day,
           15,
           30,
-        ),
-        endTime: DateTime(
-          _selectedDate.year,
-          _selectedDate.month,
-          _selectedDate.day,
-          17,
-          0,
         ),
         category: 'Strategy',
         isCompleted: false,
@@ -102,24 +86,16 @@ class _HomePageState extends State<HomePage> {
         title: 'App completion before 31st May',
         priority: TaskPriority.medium,
         status: TaskStatus.pending,
-        startTime: DateTime(
+        Time: DateTime(
           _selectedDate.year,
           _selectedDate.month,
           _selectedDate.day,
           13,
           0,
         ),
-        endTime: DateTime(
-          _selectedDate.year,
-          _selectedDate.month,
-          _selectedDate.day,
-          14,
-          0,
-        ),
         category: 'Sync',
         isCompleted: false,
       ),
-
     ];
     _updateCompletedTaskCount();
   }
@@ -134,15 +110,38 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  final DateTime _today = DateTime.now();
+
   void _onPreviousMonth() {
     setState(() {
-      _selectedDate = DateTime(_selectedDate.year, _selectedDate.month - 1);
+      final previousMonth = DateTime(
+        _selectedDate.year,
+        _selectedDate.month - 1,
+        1,
+      );
+
+      if (previousMonth.month == _today.month &&
+          previousMonth.year == _today.year) {
+        _selectedDate = _today;
+      } else {
+        _selectedDate = previousMonth;
+      }
     });
   }
 
   void _onNextMonth() {
     setState(() {
-      _selectedDate = DateTime(_selectedDate.year, _selectedDate.month + 1);
+      final nextMonth = DateTime(
+        _selectedDate.year,
+        _selectedDate.month + 1,
+        1,
+      );
+
+      if (nextMonth.month == _today.month && nextMonth.year == _today.year) {
+        _selectedDate = _today;
+      } else {
+        _selectedDate = nextMonth;
+      }
     });
   }
 
@@ -160,10 +159,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onAddTaskTap() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Add task feature coming soon!'),
-        duration: Duration(seconds: 2),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const CreateTaskPage(),
       ),
     );
   }

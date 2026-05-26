@@ -22,8 +22,7 @@ class TaskModel {
   final String? description;
   final TaskPriority priority;
   final TaskStatus status;
-  final DateTime startTime;
-  final DateTime endTime;
+  final DateTime Time;
   final String? category;
   final bool isCompleted;
   final DateTime? completedAt;
@@ -34,8 +33,8 @@ class TaskModel {
     this.description,
     required this.priority,
     required this.status,
-    required this.startTime,
-    required this.endTime,
+    required this.Time,
+
     this.category,
     this.isCompleted = false,
     this.completedAt,
@@ -59,25 +58,21 @@ class TaskModel {
       description: description ?? this.description,
       priority: priority ?? this.priority,
       status: status ?? this.status,
-      startTime: startTime ?? this.startTime,
-      endTime: endTime ?? this.endTime,
+      Time: startTime ?? this.Time,
       category: category ?? this.category,
       isCompleted: isCompleted ?? this.isCompleted,
       completedAt: completedAt ?? this.completedAt,
     );
   }
 
-  Duration get duration => endTime.difference(startTime);
 
   String formatTime(DateTime time) {
     return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
   }
 
-  String get formattedStartTime => formatTime(startTime);
+  String get formattedStartTime => formatTime(Time);
 
-  String get formattedEndTime => formatTime(endTime);
-
-  String get timeRange => '$formattedStartTime - $formattedEndTime';
+  String get time => '$formattedStartTime';
 
   @override
   bool operator ==(Object other) =>
