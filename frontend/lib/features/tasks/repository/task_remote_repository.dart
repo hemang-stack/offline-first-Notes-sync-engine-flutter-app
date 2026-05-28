@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:frontend/core/constants/constants.dart';
+
+import 'package:frontend/core/common/utils/constants.dart';
 import 'package:frontend/models/task_model.dart';
 import 'package:http/http.dart' as http;
 

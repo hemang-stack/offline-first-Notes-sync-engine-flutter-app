@@ -1,133 +1,103 @@
 import 'package:flutter/material.dart';
+
 import 'app_colors.dart';
+import 'app_radius.dart';
 
-abstract final class AppTheme {
-  static const TextStyle headlineLarge = TextStyle(
-    fontFamily: 'Poppins',
-    fontSize: 28,
-    fontWeight: FontWeight.w600,
-    color: AppColors.textPrimary,
-    letterSpacing: -0.5,
-  );
+class AppTheme {
 
-  static const TextStyle headlineMedium = TextStyle(
-    fontFamily: 'Poppins',
-    fontSize: 24,
-    fontWeight: FontWeight.w600,
-    color: AppColors.textPrimary,
-    letterSpacing: 0,
-  );
+  static ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
 
-  static const TextStyle titleLarge = TextStyle(
-    fontFamily: 'Poppins',
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
-    color: AppColors.textPrimary,
-    letterSpacing: 0.15,
-  );
+    useMaterial3: true,
 
-  static const TextStyle titleMedium = TextStyle(
-    fontFamily: 'Poppins',
-    fontSize: 18,
-    fontWeight: FontWeight.w500,
-    color: AppColors.textPrimary,
-    letterSpacing: 0.1,
-  );
+    fontFamily: 'Inter',
 
-  static const TextStyle bodyLarge = TextStyle(
-    fontFamily: 'Poppins',
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-    color: AppColors.textPrimary,
-    letterSpacing: 0.5,
-    height: 1.5,
-  );
+    scaffoldBackgroundColor:
+        AppColors.background,
 
-  static const TextStyle bodyMedium = TextStyle(
-    fontFamily: 'Poppins',
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    color: AppColors.textPrimary,
-    letterSpacing: 0.25,
-    height: 1.43,
-  );
+    colorScheme:
+        const ColorScheme.dark(
+      primary: AppColors.primary,
+      surface: AppColors.surface,
+    ),
 
-  static const TextStyle bodySmall = TextStyle(
-    fontFamily: 'Poppins',
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    color: AppColors.textSecondary,
-    letterSpacing: 0.4,
-    height: 1.67,
-  );
+    appBarTheme: const AppBarTheme(
+      backgroundColor:
+          AppColors.background,
 
-  static const TextStyle labelLarge = TextStyle(
-    fontFamily: 'Poppins',
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    color: AppColors.textPrimary,
-    letterSpacing: 0.1,
-  );
+      elevation: 0,
+    ),
 
-  static const TextStyle labelMedium = TextStyle(
-    fontFamily: 'Poppins',
-    fontSize: 12,
-    fontWeight: FontWeight.w500,
-    color: AppColors.textPrimary,
-    letterSpacing: 0.5,
-  );
+    inputDecorationTheme:
+        InputDecorationTheme(
 
-  static const TextStyle labelSmall = TextStyle(
-    fontFamily: 'Poppins',
-    fontSize: 11,
-    fontWeight: FontWeight.w500,
-    color: AppColors.textSecondary,
-    letterSpacing: 0.5,
-  );
+      filled: true,
 
-  static ThemeData get lightTheme {
-    return ThemeData(
-      useMaterial3: true,
-      brightness: Brightness.light,
-      fontFamily: 'Poppins',
-      primaryColor: AppColors.primary,
-      scaffoldBackgroundColor: AppColors.background,
-      appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.surface,
-        elevation: 0,
-        centerTitle: false,
-        titleTextStyle: AppTheme.titleMedium,
-      ),
-      textTheme: const TextTheme(
-        displayLarge: headlineLarge,
-        displayMedium: headlineMedium,
-        headlineSmall: titleLarge,
-        titleLarge: titleLarge,
-        titleMedium: titleMedium,
-        titleSmall: labelLarge,
-        bodyLarge: bodyLarge,
-        bodyMedium: bodyMedium,
-        bodySmall: bodySmall,
-        labelLarge: labelLarge,
-        labelMedium: labelMedium,
-        labelSmall: labelSmall,
-      ),
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
-        elevation: 8,
-      ),
-      checkboxTheme: CheckboxThemeData(
-        fillColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return AppColors.primary;
-          }
-          return AppColors.surface;
-        }),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
+      fillColor:
+          Colors.white.withOpacity(.03),
+
+      border: OutlineInputBorder(
+        borderRadius:
+            BorderRadius.circular(
+          AppRadius.lg,
+        ),
+
+        borderSide: BorderSide(
+          color: AppColors.border,
+          width: .5,
         ),
       ),
-    );
-  }
+
+      enabledBorder:
+          OutlineInputBorder(
+        borderRadius:
+            BorderRadius.circular(
+          AppRadius.lg,
+        ),
+
+        borderSide: BorderSide(
+          color: AppColors.border,
+          width: .5,
+        ),
+      ),
+
+      focusedBorder:
+          OutlineInputBorder(
+        borderRadius:
+            BorderRadius.circular(
+          AppRadius.lg,
+        ),
+
+        borderSide: BorderSide(
+          color: AppColors.primary,
+          width: 1,
+        ),
+      ),
+
+      hintStyle: TextStyle(
+        color:
+            Colors.white.withOpacity(.25),
+      ),
+    ),
+
+    elevatedButtonTheme:
+        ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor:
+            AppColors.primary,
+
+        foregroundColor: Colors.black,
+
+        minimumSize:
+            const Size(double.infinity, 60),
+
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(
+            AppRadius.xl,
+          ),
+        ),
+      ),
+    ),
+  );
 }

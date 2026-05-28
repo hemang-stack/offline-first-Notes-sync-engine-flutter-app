@@ -1,39 +1,23 @@
 import 'package:flutter/material.dart';
 
-abstract final class AppColors {
-  static const Color primary = Color(0xFFFF7043);
-  static const Color primaryDark = Color(0xFFE64A19);
-  static const Color primaryLight = Color(0xFFFFB74D);
+class AppColors {
+  static const background = Color(0xFF121414);
 
-  static const Color secondary = Color(0xFF6C63FF);
-  static const Color secondaryLight = Color(0xFF8B7FFF);
+  static const surface = Color(0xFF1A1C1C);
+  static const surfaceDark = Color(0xFF0C0F0F);
 
-  static const Color background = Color(0xFFFAFAFA);
-  static const Color surface = Color(0xFFFFFFFF);
-  static const Color surfaceVariant = Color(0xFFF5F5F5);
+  static const border = Color(0xFF333535);
 
-  static const Color textPrimary = Color(0xFF1F1F1F);
-  static const Color textSecondary = Color(0xFF6B6B6B);
-  static const Color textHint = Color(0xFF999999);
-  static const Color textLight = Color(0xFFB3B3B3);
+  static const primary = Color(0xFFFF6B00);
+  static const primarySoft = Color(0xFFFFB693);
 
-  static const Color high = Color(0xFFEF5350);
-  static const Color medium = Color(0xFFFFA726);
-  static const Color low = Color(0xFF66BB6A);
+  static const textPrimary = Color(0xFFE2E2E2);
+  static const textSecondary = Color(0xFF8D8D8D);
 
-  static const Color timelineActive = Color(0xFFD84315);
-  static const Color timelinePending = Color(0xFFECB3AA);
-  static const Color timelineInactive = Color(0xFFE0E0E0);
+  static const white = Colors.white;
+  static const transparent = Colors.transparent;
 
-  static const Color divider = Color(0xFFEEEEEE);
-  static const Color border = Color(0xFFE0E0E0);
-  static const Color shadow = Color(0x1F000000);
-
-  static const Color badgeHigh = Color(0xFFFFEBEE);
-  static const Color badgeMedium = Color(0xFFFFF3E0);
-  static const Color badgeLow = Color(0xFFE8F5E9);
-
-  static const Color iconPrimary = Color(0xFF1F1F1F);
-  static const Color iconSecondary = Color(0xFF9E9E9E);
-  static const Color iconLight = Color(0xFFCACACA);
+  static const success = Color(0xFF32D583);
+  static const warning = Color(0xFFFFB020);
+  static const error = Color(0xFFFF5C5C);
 }

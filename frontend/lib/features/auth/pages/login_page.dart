@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/features/auth/cubit/auth_cubit.dart';
 import 'package:frontend/features/home/pages/home_page.dart';
+import 'package:frontend/features/navigation/pages/main_navigation_page.dart';
 
 class LoginPage extends StatefulWidget {
   static MaterialPageRoute route() =>
@@ -27,9 +28,9 @@ class _LoginPageState extends State<LoginPage> {
   void loginUser() {
     if (formKey.currentState!.validate()) {
       context.read<AuthCubit>().login(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
+            email: emailController.text.trim(),
+            password: passwordController.text.trim(),
+          );
     }
   }
 
@@ -42,9 +43,14 @@ class _LoginPageState extends State<LoginPage> {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(state.error)));
-          }
-          else if (state is AuthLoggedIn) {
-              Navigator.pushAndRemoveUntil(context, HomePage.route(), (_) => false);
+          } else if (state is AuthLoggedIn) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const MainNavigationPage(),
+              ),
+              (_) => false,
+            );
           }
         },
         builder: (context, state) {
